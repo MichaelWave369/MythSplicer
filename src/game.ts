@@ -17,7 +17,7 @@ thimble:{name:'Thimble',job:'Courier',place:'tower',traits:'playful, brave, curi
 export const begin=(seed=369):Game=>({schema:'MYTHSPLICER_V1',seed:seed>>>0,turn:0,place:'square',visited:['square'],clues:[],affinity:{mara:0,osric:0,thimble:0},ledger:[{id:0,type:'travel',place:'square',message:'Your chronicle begins in Bellweather.'}]});
 export function d20(seed:number,turn:number){let x=(seed^Math.imul(turn,0x9e3779b9))>>>0;x^=x>>>16;x=Math.imul(x,0x7feb352d)>>>0;x^=x>>>15;x=Math.imul(x,0x846ca68b)>>>0;x^=x>>>16;return ((x>>>0)%20)+1;}
 export function resolve(game:Game,action:Action):Game{
-let place=game.place,visited=[...game.visited],clues=[...game.clues],affinity={...game.affinity],message='',die:number|undefined;
+let place=game.place,visited=[...game.visited],clues=[...game.clues],affinity={...game.affinity},message='',die:number|undefined;
 switch(action.type){
 case 'travel':if(!places[place].paths.includes(action.to))throw Error('Unreachable location');place=action.to;if(!visited.includes(place))visited.push(place);message='You enter '+places[place].name+'.';break;
 case 'examine':message=clues.includes(places[place].clue)?'You have already discovered this clue.':places[place].finding;if(!clues.includes(places[place].clue))clues.push(places[place].clue);break;
